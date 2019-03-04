@@ -10,8 +10,8 @@ if a == 0.0:
 elif b == 0.0:
     print(f"X1:{-sqrt(-c/b)} X2:{sqrt(-c/b)}")
 else:
-    discriminant = b*b-4*a*c
-    if discriminant == 0.0:
+    discriminant = b*b-4*a*c #Он верно посчитает даже если с = 0, поэтому это не обрабатывается
+    if discriminant == 0.0: 
         print(f"X1:{-b/(2*a)}")
     elif discriminant > 0:
         print(f"X1:{(-b-sqrt(discriminant))/(2*a)} X2:{(-b+sqrt(discriminant))/(2*a)}")
