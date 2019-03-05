@@ -5,9 +5,9 @@ a = float(input("ВВедите коэффициент A: "))
 b = float(input("ВВедите коэффициент B: "))
 c = float(input("ВВедите коэффициент C: "))
 
-if a == 0.0:
+if a == 0.0 and b != 0.0:
     print(f"X1:{-(c/b)}")
-elif b == 0.0 and c < 0:
+elif b == 0.0 and c < 0 and a != 0:
     print(f"X1:{-sqrt(-c/a)} X2:{sqrt(-c/a)}")
 elif b == 0 and c == 0:
     print(f"X1:0");
