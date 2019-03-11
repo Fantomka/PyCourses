@@ -2,10 +2,12 @@ import bz2
 import json
 import os
 from pprint import pprint
+from collections import defaultdict
 
 projectpath = 'C:\\Users\\siman\\Desktop\\курсы\\HW 04.03\\topWords\\'
 DirJsonPath = projectpath + 'JsonFolder\\'
 DirBz2Path  = projectpath + 'bz2\\'
+DirResPath  = projectpath + 'results\\'
 json_result = {}
 
 if not os.path.exists(DirJsonPath):
@@ -30,4 +32,16 @@ for folder, subfolders, files in os.walk(DirJsonPath):
                         else:
                             json_result[word] = json_result.get(word) + 1
 
-pprint(json_result)
+iteration = 0
+words_top = {}
+for word in sorted(json_result, key=json_result.get, reverse=True):
+    if iteration < 20:
+        words_top[word] = json_result[word]
+        iteration += 1
+    else:
+        pprint(words_top)
+        break
+        
+if not os.path.exists(DirResPath):
+    os.mkdir(DirResPath)
+#записать в .\results результаты полного дампа и топа в виде .json
