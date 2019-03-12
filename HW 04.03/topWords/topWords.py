@@ -2,10 +2,10 @@ import bz2
 import json
 import os
 
-projectpath = 'C:\\Users\\siman\\Desktop\\курсы\\HW 04.03\\topWords\\'
-DirJsonPath = projectpath + 'JsonFolder\\'
-DirBz2Path  = projectpath + 'bz2\\'
-DirResPath  = projectpath + 'results\\'
+
+DirJsonPath = 'JsonFolder\\'
+DirBz2Path  = 'bz2\\'
+DirResPath  = 'results\\'
 json_result = {}  # все слова, встречающиеся в файлах json
 words_top = {}  # топ 20 самых встречающихся слов в комментах, взятых из json_result
 
@@ -61,6 +61,6 @@ for file in files:
 words_top = top_words(json_result, 20)
 create_folder(DirResPath)
 with open(DirResPath + 'all_words.json', 'w') as file:
-    json.dump(json_result, file, indent = 4)
+    json.dump(json_result, file, indent=4)
 with open(DirResPath + 'top20.json', 'w') as file:
-    json.dump(words_top, file, indent = 4)
+    json.dump(words_top, file, indent=4)
