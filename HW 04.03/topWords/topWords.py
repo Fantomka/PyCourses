@@ -41,7 +41,10 @@ for word in sorted(json_result, key=json_result.get, reverse=True):
     else:
         pprint(words_top)
         break
-        
+
 if not os.path.exists(DirResPath):
     os.mkdir(DirResPath)
-#записать в .\results результаты полного дампа и топа в виде .json
+with open(DirResPath + 'all_words.json', 'w') as file:
+    json.dump(json_result, file)
+with open(DirResPath + 'top20.json', 'w') as file:
+    json.dump(words_top, file)
