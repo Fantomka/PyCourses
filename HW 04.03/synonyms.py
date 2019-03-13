@@ -1,14 +1,24 @@
-syn_dict = {}
+Synonyms = {}
 for i in range(int(input('number of commands: '))):
-    command = (input(f'command {i+1}: ').lower().split())
+    command = input(f'command {i+1}: ').lower().split()
     if command[0] == 'add':
-        syn_dict[command[1]] = command[2]
+        if Synonyms.get(command[1]) is None:
+            Synonyms[command[1]] = []
+        if Synonyms.get(command[2]) is None:
+            Synonyms[command[2]] = []
+        if command[2] not in Synonyms.get(command[1]):
+            Synonyms[command[1]].append(command[2])
+        if command[1] not in Synonyms.get(command[2]):
+            Synonyms[command[2]].append(command[1])
+        print(Synonyms)
     elif command[0] == 'count':
-        values_dict = list(syn_dict.values())
-        print(values_dict.count(command[1]))
+        if Synonyms.get(command[1]) is not None:
+            print(len(Synonyms[command[1]]))
+        else:
+            print('0')
     elif command[0] == 'check':
-        if command[1] in syn_dict.keys() and syn_dict[command[1]] == command[2] or \
-           command[2] in syn_dict.keys() and syn_dict[command[2]] == command[1]:
+        if command[1] in Synonyms.keys() and Synonyms[command[1]] == command[2] or \
+           command[2] in Synonyms.keys() and Synonyms[command[2]] == command[1]:
             print('YES')
         else:
             print('NO')
