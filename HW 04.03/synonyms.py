@@ -24,8 +24,8 @@ for i in range(int(input('number of commands: '))):
         else:
             print('0')
     elif command[0] == 'check':
-        if command[1] in Synonyms.keys() and Synonyms[command[1]] == command[2] or \
-           command[2] in Synonyms.keys() and Synonyms[command[2]] == command[1]:
+        if command[1] in Synonyms.keys() and command[2] in Synonyms[command[1]] or \
+           command[2] in Synonyms.keys() and command[1] in Synonyms[command[2]]:
             print('YES')
         else:
             print('NO')
