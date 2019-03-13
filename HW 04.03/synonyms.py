@@ -1,3 +1,10 @@
+'''
+Этот модуль реализует словарь синонимов с командами:
+add word1 word2
+count word
+check word1 word2
+'''
+
 Synonyms = {}
 for i in range(int(input('number of commands: '))):
     command = input(f'command {i+1}: ').lower().split()
