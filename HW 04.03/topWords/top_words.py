@@ -10,11 +10,11 @@ import bz2
 import json
 import os
 
-JSONPath = 'JsonFolder\\'
-BZ2Path = 'bz2\\'
-ResultsPath = 'results\\'
-json_result = {}  # все слова, встречающиеся в файлах json
-WordsTop = {}  # топ 20 самых встречающихся слов в комментах, взятых из json_result
+JSONPATH = 'JsonFolder'
+BZ2PATH = 'bz2'
+RESULTPATH = 'results'
+JSON_RESULT = {}  # все слова, встречающиеся в файлах json
+WORDSTOP = {}  # топ 20 самых встречающихся слов в комментах, взятых из JSON_RESULT
 
 
 def create_folder(path):
@@ -50,7 +50,7 @@ def read_comments_json(file_path, size):
             buffer = json.loads(line)
             if buffer['body'] not in ['[deleted]', '[removed]']:
                 buffer = buffer['body'].lower().split()
-                words += [w.strip(' ,.!?;') for w in buffer if len(w.strip(' ,.;?!')) >= size]
+                words += [w.strip(' ,.!?;()&') for w in buffer if len(w.strip(' ,.!?;()&')) >= size]
     return words
 
 
@@ -63,31 +63,31 @@ def top_words(words: dict, n_words: int):
     '''
     iteration = 0
     top = {}
-    for word in sorted(json_result, key=words.get, reverse=True):
+    for word in sorted(JSON_RESULT, key=words.get, reverse=True):
         if iteration < n_words:
-            top[word] = json_result[word]
+            top[word] = JSON_RESULT[word]
             iteration += 1
         else:
             break
     return top
 
 
-create_folder(JSONPath)
-for folder, subfolders, files in os.walk(BZ2Path):
+create_folder(JSONPATH)
+for folder, subfolders, files in os.walk(BZ2PATH):
     for file in files:
-        decode_bz2(BZ2Path+file, JSONPath + file[:-4])
+        decode_bz2(BZ2PATH + r'/' + file, JSONPATH + r'/' + file[:-4])
 
-for folder, subfolders, files in os.walk(JSONPath):
+for folder, subfolders, files in os.walk(JSONPATH):
     for file in files:
-        for Word in read_comments_json(JSONPath+file, 4):
-            if json_result.get(Word) is None:
-                json_result[Word] = 1
+        for Word in read_comments_json(JSONPATH + r'/' + file, 4):
+            if JSON_RESULT.get(Word) is None:
+                JSON_RESULT[Word] = 1
             else:
-                json_result[Word] = json_result.get(Word) + 1
+                JSON_RESULT[Word] = JSON_RESULT.get(Word) + 1
 
-WordsTop = top_words(json_result, 20)
-create_folder(ResultsPath)
-with open(ResultsPath + 'all_words.json', 'w') as file:
-    json.dump(json_result, file, indent=4)
-with open(ResultsPath + 'top20.json', 'w') as file:
-    json.dump(WordsTop, file, indent=4)
+WORDSTOP = top_words(JSON_RESULT, 20)
+create_folder(RESULTPATH)
+with open(RESULTPATH + r'/' + 'all_words.json', 'w') as file:
+    json.dump(JSON_RESULT, file, indent=4)
+with open(RESULTPATH + r'/' + 'top20.json', 'w') as file:
+    json.dump(WORDSTOP, file, indent=4)
