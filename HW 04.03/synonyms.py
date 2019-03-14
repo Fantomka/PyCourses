@@ -17,7 +17,6 @@ for i in range(int(input('number of commands: '))):
             Synonyms[command[1]].append(command[2])
         if command[1] not in Synonyms.get(command[2]):
             Synonyms[command[2]].append(command[1])
-        print(Synonyms)
     elif command[0] == 'count':
         if Synonyms.get(command[1]) is not None:
             print(len(Synonyms[command[1]]))
