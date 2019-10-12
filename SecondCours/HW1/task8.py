@@ -46,5 +46,5 @@ def frequency_analysis(message):
 
 if __name__ == '__main__':
     RES = frequency_analysis(input('print message: ').lower())
-    for _, item in enumerate(RES):
+    for item in RES:
         print("{0}:{1}".format(item[0], item[1]))
